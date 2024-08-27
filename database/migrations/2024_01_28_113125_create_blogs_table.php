@@ -18,7 +18,7 @@ return new class extends Migration
             $table->mediumText('title');
             $table->longText('description');
             $table->mediumText('short_description')->nullable();
-            $table->mediumText('slug')->unique();
+            $table->text('slug')->unique();
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             // $table->mediumText('tags')->nullable();
@@ -26,8 +26,8 @@ return new class extends Migration
             // $table->unsignedBigInteger('tags_id')->nullable();
             // $table->foreign('tags_id')->references('id')->on('tags')->onDelete('cascade');
 
-            $table->mediumText('banner')->default('default.jpg');
-            $table->mediumText('thumbnail')->default('default.jpg');
+            $table->mediumText('banner')->nullable();
+            $table->mediumText('thumbnail')->nullable();
 
             $table->mediumText('banner_thumb_alt')->nullable();
 
