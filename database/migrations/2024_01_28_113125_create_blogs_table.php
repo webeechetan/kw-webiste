@@ -18,7 +18,7 @@ return new class extends Migration
             $table->mediumText('title');
             $table->longText('description');
             $table->mediumText('short_description')->nullable();
-            $table->text('slug')->unique();
+            $table->text('slug');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             // $table->mediumText('tags')->nullable();
