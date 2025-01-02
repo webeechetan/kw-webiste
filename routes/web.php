@@ -20,11 +20,13 @@ use Illuminate\Support\Facades\Hash;
 /*--------------------------------- Website Routes ---------------------------------*/
 
 
-Route::get('/',[WebSiteController::class,'viewIndex'])->name('viewIndex');
-Route::get('/blogs/{search?}',[WebSiteController::class,'viewBlog'])->name('viewBlog');
-Route::get('/blog/{id}',[WebSiteController::class,'viewBlogInner'])->name('viewBlogInner');
-Route::get('/contact-us',[WebSiteController::class,'viewContactUsPage'])->name('viewContactUsPage');
-Route::post('/contact-us',[WebSiteController::class,'viewContactUs'])->name('viewContactUs');
+Route::get('/', [WebSiteController::class, 'viewIndex'])->name('viewIndex');
+Route::get('/blogs/{search?}', [WebSiteController::class, 'viewBlog'])->name('viewBlog');
+Route::get('/blog/{id}', [WebSiteController::class, 'viewBlogInner'])->name('viewBlogInner');
+Route::get('/contact-us', [WebSiteController::class, 'viewContactUsPage'])->name('viewContactUsPage');
+Route::post('/contact-us', [WebSiteController::class, 'viewContactUs'])->name('viewContactUs');
+Route::get('/schedule-demo', [WebSiteController::class, 'viewDemo'])->name('schedule-demo.get');
+Route::post('/schedule-demo', [WebSiteController::class, 'saveDemo'])->name('schedule-demo.post');
 
 
 /*--------------------------------- Auth Routes ---------------------------------*/
@@ -34,9 +36,9 @@ Route::post('/admin/login', [AuthController::class, 'login'])->name('login')->mi
 
 /*--------------------------------- Admin Routes ---------------------------------*/
 
-Route::group(['middleware' => 'auth','prefix'=>'/admin'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => '/admin'], function () {
 
-    Route::get('/dashboard', [DashboardController::class,'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
@@ -55,12 +57,12 @@ Route::group(['middleware' => 'auth','prefix'=>'/admin'], function () {
     Route::delete('/subscribe/{contactus}', [ContactUsController::class, 'destroy'])->name('contact.destroy');
 
 
-    
+
     Route::get('/news-letter', [NewsLetterController::class, 'index'])->name('news');
-    Route::delete('/news-letter/{newsletter}', [NewsLetterController::class,'destroy'])->name('news.destroy');
+    Route::delete('/news-letter/{newsletter}', [NewsLetterController::class, 'destroy'])->name('news.destroy');
 
     Route::get('/demo', [DemoController::class, 'index'])->name('demo');
-    
+
     /////////Demo Inquiry //////
 
 
@@ -86,21 +88,18 @@ Route::group(['middleware' => 'auth','prefix'=>'/admin'], function () {
     Route::group(['prefix' => 'filemanager', 'middleware' => ['web', 'auth']], function () {
         \UniSharp\LaravelFilemanager\Lfm::routes();
     });
-  
 
-    
+
+
 
     /*----------------------------------- Meta ---------------------------------*/
 
     Route::get('/meta', [MetaController::class, 'index'])->name('meta.index');
     Route::get('/meta/{meta}', [MetaController::class, 'edit'])->name('meta.edit');
     Route::put('meta/{meta}', [MetaController::class, 'update'])->name('meta.update');
-
 });
 
 
 
 Route::post('/news-letter/store', [NewsLetterController::class, 'store'])->name('news.store');
-Route::get('/demo',[WebSiteController::class,'viewDemo'])->name('viewDemo');
-
-
+Route::get('/demo', [WebSiteController::class, 'viewDemo'])->name('viewDemo');
